@@ -1,0 +1,22 @@
+{
+  "name": "3apis",
+  "version": "1.0.0",
+  "description": "Projet scolaire",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karasu-huginn/3APIS.git"
+  },
+  "author": "Panatik & Karasu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karasu-huginn/3APIS/issues"
+  },
+  "homepage": "https://github.com/Karasu-huginn/3APIS#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
