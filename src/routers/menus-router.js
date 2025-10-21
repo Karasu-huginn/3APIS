@@ -1,4 +1,5 @@
 import express from "express";
+import { Menu } from "../database.js";
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.post("/", (req, res) => {
 
 //* READ
 router.get("/", (req, res) => {
-    res.json(articles);
+    //res.json(articles);
 });
 
 //* UPDATE

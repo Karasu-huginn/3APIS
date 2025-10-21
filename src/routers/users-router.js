@@ -1,4 +1,5 @@
 import express from "express";
+import { User } from "../database.js";
 
 const router = express.Router();
 
@@ -9,9 +10,8 @@ router.post("/", async (req, res) => {
 
 //* READ
 router.get("/", async (req, res) => {
-    res.send("get users")
-    //const users = await User.find();
-    //return res.status(200).json(users);
+    const users = await User.find();
+    return res.status(200).json(users);
 });
 
 //* UPDATE
