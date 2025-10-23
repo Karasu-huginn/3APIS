@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   username: String,
   password: String,
-  role: String,
+  role: { type: String, default: 'user' }
 });
 export const User = mongoose.model("User", UserSchema);
 
