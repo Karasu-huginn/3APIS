@@ -1,7 +1,7 @@
 import express, { response } from "express";
 import bcrypt from "bcrypt";
 
-import { User } from "../index.js";
+import { User } from "../database.js";
 
 const router = express.Router();
 
