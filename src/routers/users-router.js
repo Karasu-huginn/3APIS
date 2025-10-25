@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
     const id = req.params.id;
     const user = await User.findById(id);
-    const newEmailUser = await User.findOne({ email: req.body.email})
+    const newEmailUser = await User.findOne({ email: req.body.email })
 
     bcrypt.hash(req.body.password, 10, async (error, hash) => {
         const userUpdate = await User.findByIdAndUpdate(id, { ...req.body, password: hash }, { new: true });
