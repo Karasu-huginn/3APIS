@@ -1,26 +1,18 @@
-import express from "express";
-import { Menu } from "../database.js";
+const express = require("express");
+const { createMenu, getMenu, updateMenu, deleteMenu } = require("../controllers/menus-controller.js")
 
 const router = express.Router();
 
 //* CREATE
-router.post("/", (req, res) => {
-
-});
+router.post("/", createMenu);
 
 //* READ
-router.get("/", (req, res) => {
-    //res.json(articles);
-});
+router.get("/", getMenu);
 
 //* UPDATE
-router.get("/", (req, res) => {
-
-});
+router.get("/:id", updateMenu);
 
 //* DELETE
-router.get("/", (req, res) => {
+router.get("/:id", deleteMenu);
 
-});
-
-export default router;
+module.exports = router;

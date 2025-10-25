@@ -1,13 +1,13 @@
-import express, { response } from "express";
-import bcrypt from "bcrypt";
+const express = require("express");
+const bcrypt = require("bcrypt");
 
-import { User } from "../database.js";
+const User = require("../models/user-model.js");
 
 const router = express.Router();
 
 
 //* CREATE
-router.post("/inscription", async (req, res) => {
+router.post("/", async (req, res) => {
     var regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, "g")
     var regex_res = regex.exec(req.body.email)
     if (!regex_res) {
@@ -25,12 +25,6 @@ router.post("/inscription", async (req, res) => {
 });
 
 //* READ
-router.get("/", async (req, res) => {
-    //res.send("get users")
-    const users = await User.find();
-    return res.status(200).json(users);
-});
-
 router.get("/:id", async (req, res) => {
     const user = await User.findById(req.params.id);
     return res.status(200).json(user);
@@ -65,4 +59,4 @@ router.delete("/:id", async (req, res) => {
     res.status(200).json({ message: `L'utilisateur ${id} est désintégré !`, user });
 });
 
-export default router;
+module.exports = router;

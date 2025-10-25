@@ -1,26 +1,18 @@
-import express from "express";
-import { Restaurant } from "../database.js";
+const express = require("express");
+const { createRestaurant, getRestaurant, updateRestaurant, deleteRestaurant } = require("../controllers/restaurants-controller.js")
 
 const router = express.Router();
 
 //* CREATE
-router.post("/", (req, res) => {
-
-});
+router.post("/", createRestaurant);
 
 //* READ
-router.get("/", (req, res) => {
-    //res.json(articles);
-});
+router.get("/", getRestaurant);
 
 //* UPDATE
-router.patch("/", (req, res) => {
-
-});
+router.patch("/:id", updateRestaurant);
 
 //* DELETE
-router.delete("/", (req, res) => {
+router.delete("/:id", deleteRestaurant);
 
-});
-
-export default router;
+module.exports = router;

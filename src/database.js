@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const MONGODB_URI = "mongodb://localhost:27017";
 const DBNAME =
@@ -18,24 +18,6 @@ db.on('error', (err) => {
 });
 
 db.once('open', () => {
-    console.log('Connected to DB');
+    console.log('Connected to DB ' + mongoose.connection.name);
+    console.log("Collections:", Object.keys(mongoose.connection.collections));
 });
-
-
-//* Schemas
-const UserSchema = new mongoose.Schema({
-    email: String,
-    username: String,
-    password: String,
-    role: { type: String, default: 'user' },
-});
-const RestaurantSchema = new mongoose.Schema({
-    //todo attributes
-});
-const MenuSchema = new mongoose.Schema({
-    //todo attributes
-});
-
-export const User = mongoose.model("User", UserSchema);
-export const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
-export const Menu = mongoose.model("Menu", MenuSchema);
