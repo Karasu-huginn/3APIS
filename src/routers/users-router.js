@@ -5,16 +5,22 @@ import { User } from "../database.js";
 
 const router = express.Router();
 
+
 //* CREATE
 router.post("/inscription", async (req, res) => {
+    var regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, "g")
+    var regex_res = regex.exec(req.body.email)
+    if (!regex_res) {
+        res.status(409).json({ status_code: 409, detail: "Invalid email address" })
+    }
     bcrypt.hash(req.body.password, 10, async (error, hash) => {
         const newUser = User({ ...req.body, password: hash });
         newUser.save()
-        .then(
-            user => {
-                res.status(200).json({ message: `Bien joué ${user.username}`})
-            }
-        )
+            .then(
+                user => {
+                    res.status(200).json({ message: `Bien joué ${user.username}` })
+                }
+            )
     })
 });
 
@@ -38,15 +44,15 @@ router.patch("/:id", async (req, res) => {
 
     bcrypt.hash(req.body.password, 10, async (error, hash) => {
         const userUpdate = await User.findByIdAndUpdate(id, { ...req.body, password: hash }, { new: true });
-        if (!userUpdate){
-            res.status(404).json({ message: "Il existe pas >:("});
+        if (!userUpdate) {
+            res.status(404).json({ message: "Il existe pas >:(" });
             return;
         }
-        if (newEmailUser !== null && req.body.email !== user.email){
+        if (newEmailUser !== null && req.body.email !== user.email) {
             res.status(409).json({ message: "Email déjà utilisé :(" });
             return;
         }
-        res.status(200).json({ message: `${id} a été modifié`});
+        res.status(200).json({ message: `${id} a été modifié` });
     })
 
 });
