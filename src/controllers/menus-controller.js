@@ -16,10 +16,14 @@ const createMenu = async (req, res) => {
 //* READ
 const getMenu = async (req, res) => {
     //todo errors handling
-    //todo pagination
     //todo sorting
+    const { page } = req.query
+    const { limit } = req.query
     try {
-        const menus = await Menu.find()
+        const menus_q = await Menu.find()
+        const page_min = (page * 1) - 1
+        const page_max = page * limit
+        const menus = menus_q.slice(page_min, page_max)
         res.status(200).json(menus)
     }
     catch (error) {

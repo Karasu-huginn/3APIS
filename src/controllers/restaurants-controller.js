@@ -16,13 +16,15 @@ const createRestaurant = async (req, res) => {
 //* READ
 const getRestaurant = async (req, res) => {
     //todo errors handling
-    //todo pagination
     //todo sorting
     const { page } = req.query
+    const { limit } = req.query
     try {
-        const restaurant = await Restaurant.find({})
-        console.log(restaurant)
-        res.status(200).json(restaurant)
+        const restaurants_q = await Restaurant.find({})
+        const page_min = (page * 1) - 1
+        const page_max = page * limit
+        const restaurants = restaurants_q.slice(page_min, page_max)
+        res.status(200).json(restaurants)
     }
     catch (error) {
         console.log(error)
