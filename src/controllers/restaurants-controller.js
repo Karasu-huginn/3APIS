@@ -17,13 +17,18 @@ const createRestaurant = async (req, res) => {
 const getRestaurant = async (req, res) => {
     //todo errors handling
     //todo sorting
-    const { page } = req.query
-    const { limit } = req.query
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 10
+    const { sort } = req.query
     try {
-        const restaurants_q = await Restaurant.find({})
-        const page_min = (page * 1) - 1
+        let query = Restaurant.find({})
+        if (sort) {
+            query.sort(sort.split(",").join(" "))
+        }
+        const page_min = (page - 1) * limit
         const page_max = page * limit
-        const restaurants = restaurants_q.slice(page_min, page_max)
+        query = query.skip(page_min).limit(page_max)
+        const restaurants = await query
         res.status(200).json(restaurants)
     }
     catch (error) {
