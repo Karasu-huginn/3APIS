@@ -5,6 +5,11 @@ const Menu = require("../models/menu-model.js");
 const createMenu = async (req, res) => {
     //todo errors handling
     //todo authentication
+
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Non autorisé à consulter ce compte" });
+    }
+
     try {
         const menu = await Menu.create(req.body)
         res.status(200).json(menu);
@@ -41,6 +46,11 @@ const getMenu = async (req, res) => {
 const updateMenu = async (req, res) => {
     //todo errors handling
     //todo authentication
+
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Non autorisé à consulter ce compte" });
+    }
+
     try {
         const { id } = req.params
         const menu = await Menu.findByIdAndUpdate(id, req.body)
@@ -54,6 +64,11 @@ const updateMenu = async (req, res) => {
 const deleteMenu = async (req, res) => {
     //todo errors handling
     //todo authentication
+
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Non autorisé à consulter ce compte" });
+    }
+
     try {
         const { id } = req.params
         const menu = await Menu.findByIdAndDelete(id)

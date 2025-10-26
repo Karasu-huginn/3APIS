@@ -1,10 +1,16 @@
 const Restaurant = require("../models/restaurant-model.js");
+const jwt = require("jsonwebtoken");
 
 
 //* CREATE
 const createRestaurant = async (req, res) => {
     //todo errors handling
     //todo authentication
+
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Non autorisé à consulter ce compte" });
+    }
+
     try {
         const restaurant = await Restaurant.create(req.body)
         res.status(200).json(restaurant);
@@ -41,6 +47,11 @@ const getRestaurant = async (req, res) => {
 const updateRestaurant = async (req, res) => {
     //todo errors handling
     //todo authentication
+
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Non autorisé à consulter ce compte" });
+    }
+
     try {
         const { id } = req.params
         const restaurant = await Restaurant.findByIdAndUpdate(id, req.body)
@@ -54,6 +65,11 @@ const updateRestaurant = async (req, res) => {
 const deleteRestaurant = async (req, res) => {
     //todo errors handling
     //todo authentication
+
+    if (req.user.role !== "admin") {
+        return res.status(403).json({ message: "Non autorisé à consulter ce compte" });
+    }
+
     try {
         const { id } = req.params
         const restaurant = await Restaurant.findByIdAndDelete(id)
